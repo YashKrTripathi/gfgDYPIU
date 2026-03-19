@@ -1,0 +1,55 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" rx="36" fill="#111217"/>
+  <text x="72" y="80" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="34" font-weight="800">Must Explore</text>
+  <g transform="translate(72 120)">
+    <rect width="212" height="104" rx="16" fill="#B185D6"/>
+    <text x="26" y="50" fill="white" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Jobs for you</text>
+    <text x="160" y="78" fill="white" font-family="Inter, Arial, sans-serif" font-size="36">→</text>
+  </g>
+  <g transform="translate(304 120)">
+    <rect width="248" height="104" rx="16" fill="#B185D6"/>
+    <text x="26" y="50" fill="white" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Hire with us</text>
+    <text x="194" y="78" fill="white" font-family="Inter, Arial, sans-serif" font-size="36">→</text>
+  </g>
+  <g transform="translate(572 120)">
+    <rect width="278" height="104" rx="16" fill="#B185D6"/>
+    <text x="26" y="50" fill="white" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Advertise with Us</text>
+    <text x="222" y="78" fill="white" font-family="Inter, Arial, sans-serif" font-size="36">→</text>
+  </g>
+  <g transform="translate(870 120)">
+    <rect width="258" height="104" rx="16" fill="#B185D6"/>
+    <text x="26" y="50" fill="white" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Placement Trainin...</text>
+    <text x="206" y="78" fill="white" font-family="Inter, Arial, sans-serif" font-size="36">→</text>
+  </g>
+  <text x="72" y="314" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="34" font-weight="800">Explore</text>
+  <g transform="translate(72 356)">
+    <rect width="478" height="190" rx="20" fill="url(#g1)"/>
+    <text x="64" y="98" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="32" font-weight="800">Data Structure and Algorithms</text>
+    <rect x="172" y="120" width="150" height="50" rx="25" stroke="white" stroke-width="2"/>
+    <text x="196" y="152" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">View more →</text>
+  </g>
+  <g transform="translate(594 356)">
+    <rect width="534" height="190" rx="20" fill="url(#g2)"/>
+    <text x="168" y="98" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="32" font-weight="800">Web Development</text>
+    <rect x="220" y="120" width="150" height="50" rx="25" stroke="white" stroke-width="2"/>
+    <text x="244" y="152" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">View more →</text>
+  </g>
+  <g transform="translate(72 580)">
+    <rect width="478" height="190" rx="20" fill="url(#g3)"/>
+    <text x="118" y="98" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="32" font-weight="800">AI ML &amp; Data Science</text>
+    <rect x="172" y="120" width="150" height="50" rx="25" stroke="white" stroke-width="2"/>
+    <text x="196" y="152" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">View more →</text>
+  </g>
+  <g transform="translate(594 580)">
+    <rect width="534" height="190" rx="20" fill="url(#g4)"/>
+    <text x="152" y="98" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="32" font-weight="800">Machine Learning</text>
+    <rect x="220" y="120" width="150" height="50" rx="25" stroke="white" stroke-width="2"/>
+    <text x="244" y="152" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">View more →</text>
+  </g>
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="478" y2="190" gradientUnits="userSpaceOnUse"><stop stop-color="#4D6BB1"/><stop offset="1" stop-color="#7B93D8"/></linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="534" y2="190" gradientUnits="userSpaceOnUse"><stop stop-color="#BE6B6B"/><stop offset="1" stop-color="#D88B8B"/></linearGradient>
+    <linearGradient id="g3" x1="0" y1="0" x2="478" y2="190" gradientUnits="userSpaceOnUse"><stop stop-color="#6B976E"/><stop offset="1" stop-color="#9DD6B4"/></linearGradient>
+    <linearGradient id="g4" x1="0" y1="0" x2="534" y2="190" gradientUnits="userSpaceOnUse"><stop stop-color="#8C79C2"/><stop offset="1" stop-color="#B29FDD"/></linearGradient>
+  </defs>
+</svg>

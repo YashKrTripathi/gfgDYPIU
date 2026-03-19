@@ -1,0 +1,61 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" rx="36" fill="#111217"/>
+  <g transform="translate(72 42)">
+    <rect width="478" height="152" rx="20" fill="url(#c1)"/>
+    <text x="158" y="84" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="32" font-weight="800">System Design</text>
+    <rect x="176" y="104" width="146" height="46" rx="23" stroke="white" stroke-width="2"/>
+    <text x="198" y="134" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">View more →</text>
+  </g>
+  <g transform="translate(594 42)">
+    <rect width="534" height="152" rx="20" fill="url(#c2)"/>
+    <text x="202" y="84" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="32" font-weight="800">DevOps</text>
+    <rect x="214" y="104" width="146" height="46" rx="23" stroke="white" stroke-width="2"/>
+    <text x="236" y="134" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">View more →</text>
+  </g>
+  <g transform="translate(72 228)">
+    <rect width="478" height="152" rx="20" fill="url(#c3)"/>
+    <text x="90" y="84" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="30" font-weight="800">Programming Languages</text>
+    <rect x="176" y="104" width="146" height="46" rx="23" stroke="white" stroke-width="2"/>
+    <text x="198" y="134" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">View more →</text>
+  </g>
+  <g transform="translate(594 228)">
+    <rect width="534" height="152" rx="20" fill="url(#c4)"/>
+    <text x="194" y="84" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="32" font-weight="800">CS Subjects</text>
+    <rect x="214" y="104" width="146" height="46" rx="23" stroke="white" stroke-width="2"/>
+    <text x="236" y="134" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">View more →</text>
+  </g>
+  <g transform="translate(72 414)">
+    <rect width="478" height="152" rx="20" fill="url(#c5)"/>
+    <text x="154" y="84" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="32" font-weight="800">Practice DSA</text>
+    <rect x="176" y="104" width="146" height="46" rx="23" stroke="white" stroke-width="2"/>
+    <text x="198" y="134" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">View more →</text>
+  </g>
+  <g transform="translate(594 414)">
+    <rect width="534" height="152" rx="20" fill="url(#c6)"/>
+    <text x="124" y="84" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="32" font-weight="800">Interview Preparation</text>
+    <rect x="214" y="104" width="146" height="46" rx="23" stroke="white" stroke-width="2"/>
+    <text x="236" y="134" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">View more →</text>
+  </g>
+  <g transform="translate(72 600)">
+    <rect width="478" height="152" rx="20" fill="url(#c7)"/>
+    <text x="186" y="84" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="32" font-weight="800">Databases</text>
+    <rect x="176" y="104" width="146" height="46" rx="23" stroke="white" stroke-width="2"/>
+    <text x="198" y="134" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">View more →</text>
+  </g>
+  <g transform="translate(594 600)">
+    <rect width="534" height="152" rx="20" fill="url(#c8)"/>
+    <text x="118" y="84" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="32" font-weight="800">Software &amp; Tools</text>
+    <rect x="214" y="104" width="146" height="46" rx="23" stroke="white" stroke-width="2"/>
+    <text x="236" y="134" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">View more →</text>
+  </g>
+  <defs>
+    <linearGradient id="c1" x1="0" y1="0" x2="478" y2="152" gradientUnits="userSpaceOnUse"><stop stop-color="#69B7C7"/><stop offset="1" stop-color="#95D3E1"/></linearGradient>
+    <linearGradient id="c2" x1="0" y1="0" x2="534" y2="152" gradientUnits="userSpaceOnUse"><stop stop-color="#C6B760"/><stop offset="1" stop-color="#F2E795"/></linearGradient>
+    <linearGradient id="c3" x1="0" y1="0" x2="478" y2="152" gradientUnits="userSpaceOnUse"><stop stop-color="#7F8898"/><stop offset="1" stop-color="#B5BDCC"/></linearGradient>
+    <linearGradient id="c4" x1="0" y1="0" x2="534" y2="152" gradientUnits="userSpaceOnUse"><stop stop-color="#C27E7E"/><stop offset="1" stop-color="#D89B9B"/></linearGradient>
+    <linearGradient id="c5" x1="0" y1="0" x2="478" y2="152" gradientUnits="userSpaceOnUse"><stop stop-color="#6778C2"/><stop offset="1" stop-color="#9AA8EA"/></linearGradient>
+    <linearGradient id="c6" x1="0" y1="0" x2="534" y2="152" gradientUnits="userSpaceOnUse"><stop stop-color="#68AD77"/><stop offset="1" stop-color="#9CE1AF"/></linearGradient>
+    <linearGradient id="c7" x1="0" y1="0" x2="478" y2="152" gradientUnits="userSpaceOnUse"><stop stop-color="#837CCD"/><stop offset="1" stop-color="#A8A2E6"/></linearGradient>
+    <linearGradient id="c8" x1="0" y1="0" x2="534" y2="152" gradientUnits="userSpaceOnUse"><stop stop-color="#C47E87"/><stop offset="1" stop-color="#E29BA3"/></linearGradient>
+  </defs>
+</svg>

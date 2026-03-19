@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRD Checklist - GFG DYPIU Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .task-list {
+            list-style: none;
+            padding-left: 15px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .task-item:hover {
+            background: #f0f1ff;
+            transform: translateX(5px);
+        }
+
+        .task-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .task-item input[type="checkbox"]:checked + .task-label {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .task-label {
+            flex: 1;
+            font-size: 15px;
+            color: #555;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .sub-task {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 12px;
+            margin-left: 32px;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            border-left: 3px solid #764ba2;
+            margin-bottom: 10px;
+        }
+
+        .sub-task input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            margin-top: 1px;
+            cursor: pointer;
+            accent-color: #764ba2;
+        }
+
+        .sub-task input[type="checkbox"]:checked + .sub-task-label {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .sub-task-label {
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .progress-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+        }
+
+        .progress-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 24px;
+            background: #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .progress-info {
+            font-size: 14px;
+            color: #666;
+            text-align: right;
+        }
+
+        .footer {
+            background: #f5f5f5;
+            padding: 20px 40px;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 PRD Checklist</h1>
+            <p>GFG DYPIU Project - Development Roadmap</p>
+        </div>
+
+        <div class="content">
+            <!-- Section 1: Quizzes -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-number">1</span>
+                    Quizzes - 2
+                </div>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox" id="task1">
+                        <label for="task1" class="task-label">Leaderboard</label>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" id="task2">
+                        <label for="task2" class="task-label">Firebase Integration</label>
+                        <div class="sub-task">
+                            <input type="checkbox" id="subtask2-1">
+                            <label for="subtask2-1" class="sub-task-label">Linkup with Name and PRN (Excel)</label>
+                        </div>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" id="task3">
+                        <label for="task3" class="task-label">Questions Configuration</label>
+                        <div class="sub-task">
+                            <input type="checkbox" id="subtask3-1">
+                            <label for="subtask3-1" class="sub-task-label">4 Questions per Domain</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Section 2: GFG Integration -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-number">2</span>
+                    GFG Integration
+                </div>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox" id="task4">
+                        <label for="task4" class="task-label">GFG Site Integration</label>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" id="task5">
+                        <label for="task5" class="task-label">GFG Connect Integration</label>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" id="task6">
+                        <label for="task6" class="task-label">GFG Problem of the Day</label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Section 3: Team Introduction -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-number">3</span>
+                    Team Introduction
+                </div>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox" id="task7">
+                        <label for="task7" class="task-label">Team Introduction Page</label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Progress Tracker -->
+            <div class="progress-section">
+                <div class="progress-title">Overall Progress</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%">
+                        <span id="progressPercent">0%</span>
+                    </div>
+                </div>
+                <div class="progress-info">
+                    <span id="progressCount">0 of 7 tasks completed</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>✓ Last Updated: March 19, 2026 | Mark tasks as complete to track progress</p>
+        </div>
+    </div>
+
+    <script>
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const total = checkboxes.length;
+            const percentage = Math.round((checked / total) * 100);
+
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressPercent').textContent = percentage + '%';
+            document.getElementById('progressCount').textContent = checked + ' of ' + total + ' tasks completed';
+        }
+
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', updateProgress);
+        });
+    </script>
+</body>
+</html>

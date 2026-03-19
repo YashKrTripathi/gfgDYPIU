@@ -1,0 +1,69 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" rx="36" fill="#121217"/>
+  <text x="78" y="82" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="34" font-weight="800">Courses</text>
+  <rect x="1006" y="34" width="110" height="44" rx="22" stroke="#CBD5E1"/>
+  <text x="1038" y="62" fill="white" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600">View All</text>
+  <g transform="translate(78 120)">
+    <rect width="272" height="260" rx="18" fill="#222"/>
+    <rect width="272" height="132" rx="18" fill="url(#grad1)"/>
+    <rect x="18" y="92" width="94" height="22" rx="6" fill="#E11D48"/>
+    <text x="18" y="74" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="22" font-weight="800">TECH</text>
+    <text x="18" y="102" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="22" font-weight="800">INTERVIEW</text>
+    <text x="16" y="178" fill="white" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">Tech Interview 101 - DSA</text>
+    <text x="16" y="210" fill="white" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">and System Design</text>
+    <text x="16" y="246" fill="#CBD5E1" font-family="Inter, Arial, sans-serif" font-size="17">Beginner to Advanced</text>
+  </g>
+  <g transform="translate(464 120)">
+    <rect width="272" height="260" rx="18" fill="#222"/>
+    <rect width="272" height="132" rx="18" fill="url(#grad2)"/>
+    <rect x="18" y="92" width="94" height="22" rx="6" fill="#E11D48"/>
+    <text x="18" y="72" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="20" font-weight="800">Java Backend</text>
+    <text x="18" y="98" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="20" font-weight="800">Development</text>
+    <text x="18" y="124" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="20" font-weight="800">with AI</text>
+    <text x="16" y="188" fill="white" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">Java Backend Development</text>
+    <text x="16" y="220" fill="white" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">with AI - Live</text>
+    <text x="16" y="246" fill="#CBD5E1" font-family="Inter, Arial, sans-serif" font-size="17">Intermediate and Advanced</text>
+  </g>
+  <g transform="translate(850 120)">
+    <rect width="272" height="260" rx="18" fill="#222"/>
+    <rect width="272" height="132" rx="18" fill="url(#grad3)"/>
+    <rect x="18" y="92" width="94" height="22" rx="6" fill="#E11D48"/>
+    <text x="18" y="80" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="22" font-weight="800">Generative AI</text>
+    <text x="18" y="108" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">Training Program</text>
+    <text x="16" y="188" fill="white" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">Generative AI Training</text>
+    <text x="16" y="220" fill="white" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">Program - Live</text>
+    <text x="16" y="246" fill="#CBD5E1" font-family="Inter, Arial, sans-serif" font-size="17">Beginner to Advanced</text>
+  </g>
+  <g transform="translate(78 424)">
+    <rect width="272" height="260" rx="18" fill="#222"/>
+    <rect width="272" height="132" rx="18" fill="url(#grad4)"/>
+    <text x="18" y="82" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="24" font-weight="800">DEVOPS</text>
+    <text x="18" y="108" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">Engineering with AI</text>
+    <text x="16" y="188" fill="white" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">DevOps Engineering with AI</text>
+    <text x="16" y="220" fill="white" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">: Planning to Production</text>
+  </g>
+  <g transform="translate(464 424)">
+    <rect width="272" height="260" rx="18" fill="#222"/>
+    <rect width="272" height="132" rx="18" fill="url(#grad5)"/>
+    <text x="18" y="92" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="24" font-weight="800">C++</text>
+    <text x="18" y="118" fill="white" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">Beginner to Advanced</text>
+    <text x="16" y="188" fill="white" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">C++ Programming - Self</text>
+    <text x="16" y="220" fill="white" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">Paced</text>
+  </g>
+  <g transform="translate(850 424)">
+    <rect width="272" height="260" rx="18" fill="#222"/>
+    <rect width="272" height="132" rx="18" fill="url(#grad6)"/>
+    <text x="18" y="94" fill="white" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="24" font-weight="800">JAVA</text>
+    <text x="18" y="120" fill="#E4E4E7" font-family="Inter, Arial, sans-serif" font-size="18">Programming</text>
+    <text x="16" y="188" fill="white" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">Java Programming - Self</text>
+    <text x="16" y="220" fill="white" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">Paced</text>
+  </g>
+  <defs>
+    <linearGradient id="grad1" x1="0" y1="0" x2="272" y2="132" gradientUnits="userSpaceOnUse"><stop stop-color="#7DD3C7"/><stop offset="1" stop-color="#146B56"/></linearGradient>
+    <linearGradient id="grad2" x1="0" y1="0" x2="272" y2="132" gradientUnits="userSpaceOnUse"><stop stop-color="#BE123C"/><stop offset="1" stop-color="#3B0764"/></linearGradient>
+    <linearGradient id="grad3" x1="0" y1="0" x2="272" y2="132" gradientUnits="userSpaceOnUse"><stop stop-color="#8B7AE6"/><stop offset="1" stop-color="#5B3AB8"/></linearGradient>
+    <linearGradient id="grad4" x1="0" y1="0" x2="272" y2="132" gradientUnits="userSpaceOnUse"><stop stop-color="#24A7D7"/><stop offset="1" stop-color="#1D4ED8"/></linearGradient>
+    <linearGradient id="grad5" x1="0" y1="0" x2="272" y2="132" gradientUnits="userSpaceOnUse"><stop stop-color="#6EA47D"/><stop offset="1" stop-color="#75F0B2"/></linearGradient>
+    <linearGradient id="grad6" x1="0" y1="0" x2="272" y2="132" gradientUnits="userSpaceOnUse"><stop stop-color="#7C65C4"/><stop offset="1" stop-color="#434A9D"/></linearGradient>
+  </defs>
+</svg>
