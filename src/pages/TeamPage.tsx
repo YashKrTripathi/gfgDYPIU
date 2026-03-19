@@ -100,7 +100,6 @@ function LeadershipCard({ leader }: Readonly<{ leader: TeamLeader }>) {
           <p className="mb-4 mt-2 text-xs font-medium uppercase tracking-widest text-primary">
             {leader.role}
           </p>
-          <p className="max-w-xs text-sm text-white/72">{leader.description}</p>
         </div>
         <div className="team-flip-face team-flip-back overflow-hidden rounded-xl border border-black/10 bg-[#161b22] shadow-[0_18px_50px_rgba(21,28,39,0.08)]">
           <div className="relative h-full w-full">
