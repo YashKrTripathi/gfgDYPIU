@@ -100,7 +100,7 @@ export const siteContent = {
     description:
       "GeeksforGeeks Student Chapter at DYPIU is where technical mastery meets professional excellence. Join a community of architects building the next generation of tech.",
     primaryAction: { label: "Join Now", href: "#" },
-    secondaryAction: { label: "View Events", href: "#" },
+    secondaryAction: { label: "View Perks", href: "#/perks" },
     image: {
       src: "/dypiu-campus-about.jpg",
       alt: "DY Patil International University Pune entrance gate",
