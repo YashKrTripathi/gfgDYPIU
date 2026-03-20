@@ -46,8 +46,7 @@ export function LeaderboardPage() {
   const [error, setError] = useState<string | null>(null);
 
   const previousActiveQuizIdRef = useRef<QuizId | null>(null);
-  const podiumTimeoutRef = useRef<number | null>(null);
-  const lastPodiumQuizIdRef = useRef<QuizId | null>(null);
+  const lastPodiumSignatureRef = useRef<string | null>(null);
 
   const displayQuiz = useMemo(
     () => quizCatalog.find((quiz) => quiz.id === displayQuizId) ?? null,
@@ -106,8 +105,10 @@ export function LeaderboardPage() {
     const previousQuizId = previousActiveQuizIdRef.current;
 
     if (control.activeQuizId) {
+      setLeaderboard([]);
       setDisplayQuizId(control.activeQuizId);
       setShowPodium(false);
+      setPodiumWinners([]);
     } else if (previousQuizId) {
       setDisplayQuizId(previousQuizId);
     }
@@ -133,7 +134,12 @@ export function LeaderboardPage() {
       return;
     }
 
-    if (lastPodiumQuizIdRef.current === displayQuizId) {
+    const nextPodiumSignature = `${displayQuizId}:${completedLeaderboard
+      .slice(0, 3)
+      .map((attempt) => attempt.id)
+      .join("|")}`;
+
+    if (lastPodiumSignatureRef.current === nextPodiumSignature) {
       return;
     }
 
@@ -142,26 +148,10 @@ export function LeaderboardPage() {
       return;
     }
 
-    lastPodiumQuizIdRef.current = displayQuizId;
+    lastPodiumSignatureRef.current = nextPodiumSignature;
     setPodiumWinners(winners);
     setShowPodium(true);
-
-    if (podiumTimeoutRef.current !== null) {
-      window.clearTimeout(podiumTimeoutRef.current);
-    }
-
-    podiumTimeoutRef.current = window.setTimeout(() => {
-      setShowPodium(false);
-    }, 6000);
   }, [completedLeaderboard, control.activeQuizId, displayQuizId]);
-
-  useEffect(() => {
-    return () => {
-      if (podiumTimeoutRef.current !== null) {
-        window.clearTimeout(podiumTimeoutRef.current);
-      }
-    };
-  }, []);
 
   if (!isFirebaseConfigured) {
     return (
@@ -195,6 +185,16 @@ export function LeaderboardPage() {
               transition={{ type: "spring", stiffness: 220, damping: 22 }}
               className="w-full max-w-5xl rounded-[2.5rem] border border-primary-fixed-dim/20 bg-[linear-gradient(135deg,rgba(14,31,38,0.96),rgba(7,16,22,0.96))] p-8 shadow-[0_30px_120px_rgba(0,0,0,0.38)] sm:p-12"
             >
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => setShowPodium(false)}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/6 text-2xl text-white/82 transition-colors hover:bg-white/12"
+                  aria-label="Close winner declaration"
+                >
+                  ×
+                </button>
+              </div>
               <p className="text-center text-sm font-bold uppercase tracking-[0.28em] text-primary-fixed-dim">
                 Winner Declaration
               </p>

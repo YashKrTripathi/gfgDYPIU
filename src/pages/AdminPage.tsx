@@ -303,11 +303,12 @@ export function AdminPage() {
     try {
       setUpdatingControl(true);
       setError(null);
+      await clearQuizAttempts(selectedQuizId);
       await saveQuizControl({
         activeQuizId: selectedQuizId,
         updatedAt: Date.now(),
       });
-      setSaveMessage(`${settings.title} is now live for players.`);
+      setSaveMessage(`${settings.title} is now live for players, and its leaderboard has been reset for a fresh round.`);
     } catch (controlError) {
       setError(
         controlError instanceof Error

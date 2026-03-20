@@ -58,6 +58,51 @@ function sortAttempts(attempts: readonly QuizAttempt[]) {
   });
 }
 
+function getParticipantKey(attempt: QuizAttempt) {
+  return `${attempt.prn.trim().toLowerCase()}::${attempt.name.trim().toLowerCase()}`;
+}
+
+function pickPreferredAttempt(left: QuizAttempt, right: QuizAttempt) {
+  if (left.status !== right.status) {
+    return left.status === "completed" ? left : right;
+  }
+
+  if (left.score !== right.score) {
+    return left.score > right.score ? left : right;
+  }
+
+  if (left.answersCount !== right.answersCount) {
+    return left.answersCount > right.answersCount ? left : right;
+  }
+
+  if (left.timeTakenSeconds !== right.timeTakenSeconds) {
+    return left.timeTakenSeconds < right.timeTakenSeconds ? left : right;
+  }
+
+  return left.updatedAt >= right.updatedAt ? left : right;
+}
+
+function dedupeAttemptsByParticipant(attempts: readonly QuizAttempt[]) {
+  const attemptsByParticipant = new Map<string, QuizAttempt>();
+
+  attempts.forEach((attempt) => {
+    const participantKey = getParticipantKey(attempt);
+    const existingAttempt = attemptsByParticipant.get(participantKey);
+
+    if (!existingAttempt) {
+      attemptsByParticipant.set(participantKey, attempt);
+      return;
+    }
+
+    attemptsByParticipant.set(
+      participantKey,
+      pickPreferredAttempt(existingAttempt, attempt),
+    );
+  });
+
+  return [...attemptsByParticipant.values()];
+}
+
 export async function getQuizSettings(quizId: QuizId): Promise<QuizSettings> {
   const firestore = requireDb();
   const settingsSnapshot = await getDoc(doc(firestore, SETTINGS_COLLECTION, quizId));
@@ -274,7 +319,7 @@ export function subscribeLeaderboard(
       .map((attemptSnapshot) => attemptSnapshot.data() as QuizAttempt)
       .filter((attempt) => attempt.quizId === quizId);
 
-    onUpdate(sortAttempts(attempts));
+    onUpdate(sortAttempts(dedupeAttemptsByParticipant(attempts)));
   });
 }
 

@@ -99,7 +99,7 @@ export const siteContent = {
     highlightedWord: "Engineering",
     description:
       "GeeksforGeeks Student Chapter at DYPIU is where technical mastery meets professional excellence. Join a community of architects building the next generation of tech.",
-    primaryAction: { label: "Join Now", href: "#" },
+    primaryAction: { label: "Join Now", href: "https://www.geeksforgeeks.org/" },
     secondaryAction: { label: "View Perks", href: "#/perks" },
     image: {
       src: "/dypiu-campus-about.jpg",
