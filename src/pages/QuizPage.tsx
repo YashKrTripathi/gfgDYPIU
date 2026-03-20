@@ -28,9 +28,18 @@ interface ActiveAttemptState {
   readonly currentQuestionIndex: number;
 }
 
+interface SubmittedRoundState {
+  readonly quizId: QuizId;
+  readonly name: string;
+  readonly prn: string;
+  readonly submittedAt: number;
+}
+
 function getStorageKey(quizId: QuizId) {
   return `gfg_dypiu_active_quiz_attempt_${quizId}`;
 }
+
+const SUBMITTED_ROUND_STORAGE_KEY = "gfg_dypiu_submitted_round";
 
 function findStoredAttempt(): ActiveAttemptState | null {
   for (const quiz of quizCatalog) {
@@ -55,6 +64,31 @@ function saveActiveAttemptToStorage(attempt: ActiveAttemptState) {
 
 function clearActiveAttemptFromStorage(quizId: QuizId) {
   localStorage.removeItem(getStorageKey(quizId));
+}
+
+function findSubmittedRound(): SubmittedRoundState | null {
+  const rawValue = localStorage.getItem(SUBMITTED_ROUND_STORAGE_KEY);
+  if (!rawValue) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(rawValue) as SubmittedRoundState;
+  } catch {
+    localStorage.removeItem(SUBMITTED_ROUND_STORAGE_KEY);
+    return null;
+  }
+}
+
+function saveSubmittedRound(submittedRound: SubmittedRoundState) {
+  localStorage.setItem(
+    SUBMITTED_ROUND_STORAGE_KEY,
+    JSON.stringify(submittedRound),
+  );
+}
+
+function clearSubmittedRound() {
+  localStorage.removeItem(SUBMITTED_ROUND_STORAGE_KEY);
 }
 
 function formatDuration(totalSeconds: number) {
@@ -112,6 +146,9 @@ export function QuizPage() {
   const [activeAttempt, setActiveAttempt] = useState<ActiveAttemptState | null>(
     null,
   );
+  const [submittedRound, setSubmittedRound] = useState<SubmittedRoundState | null>(
+    null,
+  );
   const [remainingSeconds, setRemainingSeconds] = useState(10 * 60);
   const [result, setResult] = useState<{
     readonly score: number;
@@ -157,6 +194,13 @@ export function QuizPage() {
           setActiveAttempt(storedAttempt);
           setName(storedAttempt.name);
           setPrn(storedAttempt.prn);
+        }
+
+        const storedSubmission = findSubmittedRound();
+        if (storedSubmission) {
+          setSubmittedRound(storedSubmission);
+          setName(storedSubmission.name);
+          setPrn(storedSubmission.prn);
         }
       } catch (loadError) {
         if (!isMounted) {
@@ -267,7 +311,7 @@ export function QuizPage() {
 
       if (nextRemaining === 0 && !autoSubmittingRef.current && !result) {
         autoSubmittingRef.current = true;
-        void handleSubmit();
+        void handleSubmit(true);
       }
     };
 
@@ -276,6 +320,13 @@ export function QuizPage() {
 
     return () => window.clearInterval(intervalId);
   }, [activeAttempt, result, settings]);
+
+  useEffect(() => {
+    if (submittedRound && control.activeQuizId !== submittedRound.quizId) {
+      clearSubmittedRound();
+      setSubmittedRound(null);
+    }
+  }, [control.activeQuizId, submittedRound]);
 
   useEffect(() => {
     if (!activeAttempt) {
@@ -291,6 +342,8 @@ export function QuizPage() {
     setResult(null);
     setName("");
     setPrn("");
+    clearSubmittedRound();
+    setSubmittedRound(null);
     autoSubmittingRef.current = false;
   }, [activeAttempt, control.activeQuizId]);
 
@@ -319,6 +372,13 @@ export function QuizPage() {
 
     if (!settings.isLive || control.activeQuizId !== currentQuizId) {
       setError("Please wait until the admin starts the quiz.");
+      return;
+    }
+
+    if (submittedRound?.quizId === currentQuizId) {
+      setError(
+        "You have already submitted this round. Wait for the admin to start the next quiz.",
+      );
       return;
     }
 
@@ -390,13 +450,24 @@ export function QuizPage() {
     });
   }
 
-  async function handleSubmit() {
+  async function handleSubmit(force = false) {
     if (!activeAttempt || !settings || submitting) {
+      return;
+    }
+
+    const answeredCount = Object.keys(activeAttempt.answers).length;
+    const remainingQuestionCount = activeQuestions.length - answeredCount;
+
+    if (!force && remainingQuestionCount > 0) {
+      setError(
+        `${remainingQuestionCount} question${remainingQuestionCount === 1 ? "" : "s"} remaining. Answer all questions before submitting.`,
+      );
       return;
     }
 
     try {
       setSubmitting(true);
+      setError(null);
 
       const score = calculateScore(activeQuestions, activeAttempt.answers);
 
@@ -415,6 +486,14 @@ export function QuizPage() {
         totalQuestions: activeQuestions.length,
         timeTakenSeconds,
       });
+      const completedRound: SubmittedRoundState = {
+        quizId: activeAttempt.quizId,
+        name: activeAttempt.name,
+        prn: activeAttempt.prn,
+        submittedAt: Date.now(),
+      };
+      setSubmittedRound(completedRound);
+      saveSubmittedRound(completedRound);
       setActiveAttempt(null);
       clearActiveAttemptFromStorage(activeAttempt.quizId);
     } catch (submitError) {
@@ -485,6 +564,27 @@ export function QuizPage() {
                   >
                     Return to Lobby
                   </button>
+                </div>
+              </section>
+            ) : submittedRound?.quizId === currentQuizId ? (
+              <section className="rounded-[1.5rem] bg-white p-6 shadow-[0_24px_60px_rgba(21,28,39,0.08)] sm:p-10">
+                <p className="text-xs font-bold uppercase tracking-[0.24em] text-primary">
+                  Submission Received
+                </p>
+                <h2 className="mt-4 font-headline text-2xl font-extrabold text-on-surface sm:text-3xl">
+                  You have already finished this round.
+                </h2>
+                <p className="mt-4 max-w-2xl text-sm leading-relaxed text-on-surface-variant sm:text-base">
+                  Your attempt is already locked for {settings?.title}. Wait for
+                  the admin to stop this quiz and start the next round.
+                </p>
+                <div className="mt-8 rounded-2xl bg-surface-container-low px-5 py-4">
+                  <p className="text-sm font-semibold text-on-surface">
+                    {submittedRound.name}
+                  </p>
+                  <p className="mt-1 text-xs uppercase tracking-[0.18em] text-on-surface-variant">
+                    {submittedRound.prn}
+                  </p>
                 </div>
               </section>
             ) : activeAttempt ? (
@@ -673,10 +773,19 @@ export function QuizPage() {
                   <button
                     type="button"
                     onClick={() => void handleStartQuiz()}
-                    disabled={!currentQuiz || !settings?.isLive || control.activeQuizId !== currentQuizId}
+                    disabled={
+                      !currentQuiz ||
+                      !settings?.isLive ||
+                      control.activeQuizId !== currentQuizId ||
+                      submittedRound?.quizId === currentQuizId
+                    }
                     className="w-full rounded-2xl bg-primary px-6 py-3 font-semibold text-on-primary disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
                   >
-                    {currentQuiz ? "Start Quiz" : "Waiting for Admin"}
+                    {submittedRound?.quizId === currentQuizId
+                      ? "Already Submitted"
+                      : currentQuiz
+                        ? "Start Quiz"
+                        : "Waiting for Admin"}
                   </button>
                 </div>
               </section>
