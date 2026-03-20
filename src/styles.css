@@ -25,6 +25,8 @@ img {
 .team-flip-card {
   position: relative;
   perspective: 1200px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .team-flip-card-inner {
@@ -36,6 +38,10 @@ img {
 }
 
 .team-flip-card:hover .team-flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.team-flip-card.touch-flipped .team-flip-card-inner {
   transform: rotateY(180deg);
 }
 
@@ -52,4 +58,69 @@ img {
 
 .team-flip-back {
   transform: rotateY(180deg);
+}
+
+.perks-flip-card {
+  perspective: 1200px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.perks-flip-card-inner {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s ease;
+}
+
+.perks-flip-card:hover .perks-flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.perks-flip-card.touch-flipped .perks-flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.perks-flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.perks-flip-front {
+  z-index: 2;
+}
+
+.perks-flip-back {
+  transform: rotateY(180deg);
+}
+
+@keyframes mobile-flip-hint {
+  0%,
+  14%,
+  100% {
+    transform: rotateY(0deg);
+  }
+
+  42%,
+  72% {
+    transform: rotateY(180deg);
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .team-flip-card.flip-hint .team-flip-card-inner,
+  .perks-flip-card.flip-hint .perks-flip-card-inner {
+    animation: mobile-flip-hint 1.8s ease;
+  }
+
+  .perks-flip-card:hover .perks-flip-card-inner {
+    transform: none;
+  }
+
+  .team-flip-card:hover .team-flip-card-inner {
+    transform: none;
+  }
 }

@@ -1,3 +1,4 @@
+import { useTouchFlipCard } from "../hooks/useTouchFlipCard";
 import type { NavLink, TeamDomainLead, TeamLeader, TeamMentor } from "../data/mockData";
 import { siteContent } from "../data/mockData";
 
@@ -83,8 +84,27 @@ function MentorCard({ mentor }: Readonly<{ mentor: TeamMentor }>) {
 }
 
 function LeadershipCard({ leader }: Readonly<{ leader: TeamLeader }>) {
+  const {
+    cardRef,
+    isTouchDevice,
+    isFlipped,
+    showHint,
+    toggleFlip,
+    handleTouchEnd,
+    handleKeyDown,
+  } = useTouchFlipCard({ revealOnVisible: true });
+
   return (
-    <div className="team-flip-card min-h-[360px]">
+    <div
+      ref={cardRef}
+      className={`team-flip-card min-h-[360px] ${isFlipped ? "touch-flipped" : ""} ${showHint ? "flip-hint" : ""} ${isTouchDevice ? "cursor-pointer" : ""}`}
+      onClick={isTouchDevice ? undefined : toggleFlip}
+      onTouchEnd={handleTouchEnd}
+      onKeyDown={handleKeyDown}
+      role={isTouchDevice ? "button" : undefined}
+      tabIndex={isTouchDevice ? 0 : undefined}
+      aria-label={isTouchDevice ? `Flip card for ${leader.name}` : undefined}
+    >
       <div className="team-flip-card-inner">
         <div className="team-flip-face team-flip-front flex flex-col items-center justify-center rounded-xl border border-black/10 bg-[#161b22] p-6 text-center text-white shadow-[0_18px_50px_rgba(21,28,39,0.08)] sm:p-8">
           <div className="mb-5 h-36 w-36 overflow-hidden rounded-full border-4 border-primary/15 p-1 sm:mb-6 sm:h-40 sm:w-40">
@@ -131,8 +151,27 @@ function LeadershipCard({ leader }: Readonly<{ leader: TeamLeader }>) {
 }
 
 function DomainLeadCard({ lead }: Readonly<{ lead: TeamDomainLead }>) {
+  const {
+    cardRef,
+    isTouchDevice,
+    isFlipped,
+    showHint,
+    toggleFlip,
+    handleTouchEnd,
+    handleKeyDown,
+  } = useTouchFlipCard({ revealOnVisible: true });
+
   return (
-    <div className="team-flip-card min-h-[250px]">
+    <div
+      ref={cardRef}
+      className={`team-flip-card min-h-[250px] ${isFlipped ? "touch-flipped" : ""} ${showHint ? "flip-hint" : ""} ${isTouchDevice ? "cursor-pointer" : ""}`}
+      onClick={isTouchDevice ? undefined : toggleFlip}
+      onTouchEnd={handleTouchEnd}
+      onKeyDown={handleKeyDown}
+      role={isTouchDevice ? "button" : undefined}
+      tabIndex={isTouchDevice ? 0 : undefined}
+      aria-label={isTouchDevice ? `Flip card for ${lead.name}` : undefined}
+    >
       <div className="team-flip-card-inner">
         <div className="team-flip-face team-flip-front flex h-full flex-col items-center justify-center rounded-xl border border-black/10 bg-[#161b22] p-5 text-center text-white transition-colors hover:border-primary/30 hover:bg-[#1d242d] sm:p-6">
           <div className="mb-4 h-24 w-24 flex-shrink-0 overflow-hidden rounded-full border border-primary/15 p-1 sm:h-28 sm:w-28">
@@ -181,7 +220,7 @@ export function TeamPage({ footerBrand }: Readonly<TeamPageProps>) {
 
   return (
     <div className="min-h-screen bg-background font-body text-on-surface">
-      <main className="pb-16 pt-28 sm:pb-20 sm:pt-32">
+      <main className="pb-16 pt-32 sm:pb-20 sm:pt-32">
         <section className="mx-auto mb-16 max-w-7xl px-4 sm:mb-20 sm:px-6 md:mb-24">
           <div className="grid grid-cols-1 items-end gap-6 sm:gap-8 md:grid-cols-12">
             <div className="md:col-span-7">

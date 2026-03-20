@@ -4,7 +4,7 @@ import type { NavLink } from "../data/mockData";
 
 interface NavbarProps {
   readonly links: readonly NavLink[];
-  readonly currentPage: "home" | "team" | "quiz" | "perks";
+  readonly currentPage: "home" | "team" | "quiz" | "perks" | "admin" | "leaderboard";
 }
 
 export function Navbar({ links, currentPage }: Readonly<NavbarProps>) {

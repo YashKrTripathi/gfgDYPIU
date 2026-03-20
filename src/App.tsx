@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { Navbar } from "./components/Navbar";
 import { HomePage } from "./pages/HomePage";
 import { TeamPage } from "./pages/TeamPage";
-import { ComingSoonPage } from "./pages/ComingSoonPage";
+import { QuizPage } from "./pages/QuizPage";
+import { PerksPage } from "./pages/PerksPage";
+import { AdminPage } from "./pages/AdminPage";
+import { LeaderboardPage } from "./pages/LeaderboardPage";
 import { siteContent } from "./data/mockData";
 
-type AppPage = "home" | "team" | "quiz" | "perks";
+type AppPage = "home" | "team" | "quiz" | "perks" | "admin" | "leaderboard";
 
 function getCurrentPageFromHash(hash: string): AppPage {
   if (hash.startsWith("#/team")) {
@@ -18,6 +21,14 @@ function getCurrentPageFromHash(hash: string): AppPage {
 
   if (hash.startsWith("#/perks")) {
     return "perks";
+  }
+
+  if (hash.startsWith("#/admin")) {
+    return "admin";
+  }
+
+  if (hash.startsWith("#/leaderboard")) {
+    return "leaderboard";
   }
 
   return "home";
@@ -44,13 +55,19 @@ function App() {
 
   return (
     <div className="overflow-x-hidden antialiased">
-      <Navbar links={siteContent.navbarItems} currentPage={currentPage} />
+      {currentPage !== "leaderboard" ? (
+        <Navbar links={siteContent.navbarItems} currentPage={currentPage} />
+      ) : null}
       {currentPage === "team" ? (
         <TeamPage footerBrand={siteContent.footer.brand} />
       ) : currentPage === "quiz" ? (
-        <ComingSoonPage pageName="quiz" />
+        <QuizPage />
       ) : currentPage === "perks" ? (
-        <ComingSoonPage pageName="perks" />
+        <PerksPage />
+      ) : currentPage === "admin" ? (
+        <AdminPage />
+      ) : currentPage === "leaderboard" ? (
+        <LeaderboardPage />
       ) : (
         <HomePage />
       )}
