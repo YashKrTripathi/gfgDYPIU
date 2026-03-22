@@ -1,7 +1,18 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  type User,
+} from "firebase/auth";
 
 import { quizCatalog, quizPresets } from "../data/quizCatalog";
-import { isFirebaseConfigured } from "../lib/firebase";
+import {
+  adminEmail,
+  firebaseAuth,
+  isAdminEmailConfigured,
+  isFirebaseConfigured,
+} from "../lib/firebase";
 import {
   clearQuizAttempts,
   ensureQuizSeeded,
@@ -21,6 +32,7 @@ import type {
   QuizQuestion,
   QuizSettings,
 } from "../types/quiz";
+import { defaultQuizControl } from "../types/quiz";
 
 function downloadAttemptsCsv(attempts: readonly QuizAttempt[]) {
   const header = [
@@ -84,7 +96,138 @@ function FirebaseSetupNotice() {
   );
 }
 
+function AdminEmailSetupNotice() {
+  return (
+    <div className="mx-auto max-w-3xl rounded-[1.75rem] border border-amber-200 bg-amber-50 p-8 shadow-[0_24px_60px_rgba(21,28,39,0.08)]">
+      <p className="text-xs font-bold uppercase tracking-[0.24em] text-amber-700">
+        Admin Access Setup Needed
+      </p>
+      <h1 className="mt-4 font-headline text-3xl font-extrabold text-on-surface sm:text-4xl">
+        Add an allowed admin email before opening the console.
+      </h1>
+      <p className="mt-4 text-base leading-relaxed text-on-surface-variant">
+        Set <code>VITE_ADMIN_EMAIL</code> in <code>.env.local</code> to the
+        Firebase Authentication email address that should be allowed into the
+        admin portal.
+      </p>
+    </div>
+  );
+}
+
+interface AdminLoginCardProps {
+  readonly email: string;
+  readonly password: string;
+  readonly error: string | null;
+  readonly submitting: boolean;
+  readonly onEmailChange: (value: string) => void;
+  readonly onPasswordChange: (value: string) => void;
+  readonly onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+}
+
+function AdminLoginCard({
+  email,
+  password,
+  error,
+  submitting,
+  onEmailChange,
+  onPasswordChange,
+  onSubmit,
+}: Readonly<AdminLoginCardProps>) {
+  return (
+    <div className="mx-auto max-w-md rounded-[1.75rem] border border-black/10 bg-white p-8 shadow-[0_24px_60px_rgba(21,28,39,0.08)] sm:p-10">
+      <p className="text-xs font-bold uppercase tracking-[0.24em] text-primary">
+        Protected Admin Portal
+      </p>
+      <h1 className="mt-4 font-headline text-3xl font-extrabold text-on-surface sm:text-4xl">
+        Sign in to continue.
+      </h1>
+      <p className="mt-4 text-base leading-relaxed text-on-surface-variant">
+        Use your Firebase Authentication admin account to unlock quiz controls,
+        question editing, and exports.
+      </p>
+
+      <form className="mt-8 space-y-4" onSubmit={onSubmit}>
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-semibold text-on-surface">Email</span>
+          <input
+            type="email"
+            value={email}
+            onChange={(event) => onEmailChange(event.target.value)}
+            autoComplete="email"
+            className="rounded-2xl border border-zinc-200 px-4 py-3 outline-none transition-colors focus:border-primary"
+            placeholder="admin@example.com"
+          />
+        </label>
+
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-semibold text-on-surface">Password</span>
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => onPasswordChange(event.target.value)}
+            autoComplete="current-password"
+            className="rounded-2xl border border-zinc-200 px-4 py-3 outline-none transition-colors focus:border-primary"
+            placeholder="Enter your password"
+          />
+        </label>
+
+        {error ? (
+          <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {error}
+          </div>
+        ) : null}
+
+        <button
+          type="submit"
+          disabled={submitting}
+          className="w-full rounded-2xl bg-primary px-5 py-3 font-semibold text-on-primary disabled:opacity-60"
+        >
+          {submitting ? "Signing In..." : "Sign In"}
+        </button>
+      </form>
+    </div>
+  );
+}
+
+interface UnauthorizedAdminNoticeProps {
+  readonly signedInEmail: string;
+  readonly onSignOut: () => void;
+}
+
+function UnauthorizedAdminNotice({
+  signedInEmail,
+  onSignOut,
+}: Readonly<UnauthorizedAdminNoticeProps>) {
+  return (
+    <div className="mx-auto max-w-3xl rounded-[1.75rem] border border-red-200 bg-red-50 p-8 shadow-[0_24px_60px_rgba(21,28,39,0.08)]">
+      <p className="text-xs font-bold uppercase tracking-[0.24em] text-red-700">
+        Access Denied
+      </p>
+      <h1 className="mt-4 font-headline text-3xl font-extrabold text-on-surface sm:text-4xl">
+        This account cannot open the admin console.
+      </h1>
+      <p className="mt-4 text-base leading-relaxed text-on-surface-variant">
+        Signed in as <strong>{signedInEmail}</strong>. Only the configured admin
+        email can access this route.
+      </p>
+      <button
+        type="button"
+        onClick={onSignOut}
+        className="mt-6 rounded-2xl border border-zinc-300 px-5 py-3 font-semibold text-on-surface"
+      >
+        Sign Out
+      </button>
+    </div>
+  );
+}
+
 export function AdminPage() {
+  const [authReady, setAuthReady] = useState(false);
+  const [adminUser, setAdminUser] = useState<User | null>(null);
+  const [loginEmail, setLoginEmail] = useState(adminEmail);
+  const [loginPassword, setLoginPassword] = useState("");
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [signingIn, setSigningIn] = useState(false);
   const [selectedQuizId, setSelectedQuizId] =
     useState<QuizId>("architects-gambit");
   const [settings, setSettings] = useState<QuizSettings | null>(null);
@@ -109,10 +252,36 @@ export function AdminPage() {
     () => attempts.filter((attempt) => attempt.status === "completed"),
     [attempts],
   );
+  const normalizedUserEmail = adminUser?.email?.trim().toLowerCase() ?? "";
+  const isAuthorizedAdmin =
+    isAdminEmailConfigured &&
+    Boolean(adminUser) &&
+    normalizedUserEmail === adminEmail;
 
   useEffect(() => {
-    if (!isFirebaseConfigured) {
+    if (!firebaseAuth) {
+      setAuthReady(true);
+      return;
+    }
+
+    const unsubscribe = onAuthStateChanged(firebaseAuth, (nextUser) => {
+      setAdminUser(nextUser);
+      setAuthError(null);
+      setAuthReady(true);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    if (!isFirebaseConfigured || !isAuthorizedAdmin) {
+      setSettings(null);
+      setQuestions([]);
+      setAttempts([]);
+      setControl(defaultQuizControl);
       setLoading(false);
+      setError(null);
+      setSaveMessage(null);
       return;
     }
 
@@ -167,7 +336,63 @@ export function AdminPage() {
       unsubscribeAttempts();
       unsubscribeControl();
     };
-  }, [selectedQuizId]);
+  }, [isAuthorizedAdmin, selectedQuizId]);
+
+  async function handleAdminSignIn(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!firebaseAuth) {
+      setAuthError("Firebase Authentication is not available.");
+      return;
+    }
+
+    const nextEmail = loginEmail.trim();
+    const nextPassword = loginPassword.trim();
+
+    if (!nextEmail || !nextPassword) {
+      setAuthError("Enter both the admin email and password.");
+      return;
+    }
+
+    if (nextEmail.toLowerCase() !== adminEmail) {
+      setAuthError(`Use the configured admin account (${adminEmail}).`);
+      return;
+    }
+
+    try {
+      setSigningIn(true);
+      setAuthError(null);
+      await signInWithEmailAndPassword(firebaseAuth, nextEmail, nextPassword);
+      setLoginPassword("");
+    } catch (signInError) {
+      setAuthError(
+        signInError instanceof Error
+          ? signInError.message
+          : "Unable to sign in to the admin portal.",
+      );
+    } finally {
+      setSigningIn(false);
+    }
+  }
+
+  async function handleAdminSignOut() {
+    if (!firebaseAuth) {
+      return;
+    }
+
+    try {
+      setAuthError(null);
+      await signOut(firebaseAuth);
+      setLoginEmail(adminEmail);
+      setLoginPassword("");
+    } catch (signOutError) {
+      setAuthError(
+        signOutError instanceof Error
+          ? signOutError.message
+          : "Unable to sign out right now.",
+      );
+    }
+  }
 
   function handleSettingChange<K extends keyof QuizSettings>(
     key: K,
@@ -388,6 +613,51 @@ export function AdminPage() {
     );
   }
 
+  if (!isAdminEmailConfigured) {
+    return (
+      <div className="min-h-screen bg-background px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
+        <AdminEmailSetupNotice />
+      </div>
+    );
+  }
+
+  if (!authReady) {
+    return (
+      <div className="min-h-screen bg-background px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
+        <div className="mx-auto max-w-3xl rounded-[1.75rem] bg-white p-8 shadow-[0_24px_60px_rgba(21,28,39,0.08)]">
+          Checking admin access...
+        </div>
+      </div>
+    );
+  }
+
+  if (!adminUser) {
+    return (
+      <div className="min-h-screen bg-background px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
+        <AdminLoginCard
+          email={loginEmail}
+          password={loginPassword}
+          error={authError}
+          submitting={signingIn}
+          onEmailChange={setLoginEmail}
+          onPasswordChange={setLoginPassword}
+          onSubmit={handleAdminSignIn}
+        />
+      </div>
+    );
+  }
+
+  if (!isAuthorizedAdmin) {
+    return (
+      <div className="min-h-screen bg-background px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
+        <UnauthorizedAdminNotice
+          signedInEmail={adminUser.email ?? "unknown"}
+          onSignOut={() => void handleAdminSignOut()}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
       <div className="mx-auto max-w-7xl space-y-8">
@@ -411,26 +681,37 @@ export function AdminPage() {
                   : "Currently live: none"}
               </p>
             </div>
-            <div className="grid gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl bg-white/6 p-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-white/55">
-                  Quizzes
-                </p>
-                <p className="mt-2 font-headline text-3xl font-bold">2</p>
+            <div className="space-y-4">
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => void handleAdminSignOut()}
+                  className="rounded-2xl border border-white/15 bg-white/8 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/12"
+                >
+                  Sign Out
+                </button>
               </div>
-              <div className="rounded-2xl bg-white/6 p-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-white/55">
-                  Questions
-                </p>
-                <p className="mt-2 font-headline text-3xl font-bold">40</p>
-              </div>
-              <div className="rounded-2xl bg-white/6 p-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-white/55">
-                  Attempts
-                </p>
-                <p className="mt-2 font-headline text-3xl font-bold">
-                  {attempts.length}
-                </p>
+              <div className="grid gap-3 sm:grid-cols-3">
+                <div className="rounded-2xl bg-white/6 p-4">
+                  <p className="text-xs uppercase tracking-[0.2em] text-white/55">
+                    Quizzes
+                  </p>
+                  <p className="mt-2 font-headline text-3xl font-bold">2</p>
+                </div>
+                <div className="rounded-2xl bg-white/6 p-4">
+                  <p className="text-xs uppercase tracking-[0.2em] text-white/55">
+                    Questions
+                  </p>
+                  <p className="mt-2 font-headline text-3xl font-bold">40</p>
+                </div>
+                <div className="rounded-2xl bg-white/6 p-4">
+                  <p className="text-xs uppercase tracking-[0.2em] text-white/55">
+                    Attempts
+                  </p>
+                  <p className="mt-2 font-headline text-3xl font-bold">
+                    {attempts.length}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

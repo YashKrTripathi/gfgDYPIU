@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -11,9 +12,14 @@ const firebaseConfig = {
 };
 
 export const isFirebaseConfigured = Object.values(firebaseConfig).every(Boolean);
+export const adminEmail = (import.meta.env.VITE_ADMIN_EMAIL ?? "")
+  .trim()
+  .toLowerCase();
+export const isAdminEmailConfigured = Boolean(adminEmail);
 
 export const firebaseApp = isFirebaseConfigured
   ? initializeApp(firebaseConfig)
   : null;
 
+export const firebaseAuth = firebaseApp ? getAuth(firebaseApp) : null;
 export const db = firebaseApp ? getFirestore(firebaseApp) : null;
