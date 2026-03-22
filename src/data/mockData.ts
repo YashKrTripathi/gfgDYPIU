@@ -266,8 +266,8 @@ export const siteContent = {
       quote:
         '"Guiding the next generation of engineers to solve real-world problems with elegance and efficiency."',
       image: {
-        src: "/team/mrunmayee-placeholder.svg",
-        alt: "Mrunmayee Rahate portrait placeholder",
+        src: "/team/mrunmayee.jpeg",
+        alt: "Portrait of Ms. Mrunmayee Rahate",
       },
       links: [
         {
