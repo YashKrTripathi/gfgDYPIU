@@ -1,4 +1,6 @@
+import { Footer } from "../components/Footer";
 import { useTouchFlipCard } from "../hooks/useTouchFlipCard";
+import { siteContent } from "../data/mockData";
 
 const featuredPerkBenefits = [
   {
@@ -22,8 +24,6 @@ const featuredPerkBenefits = [
     description: "GFG mentor community",
   },
 ] as const;
-
-const socialIcons = ["language", "groups"] as const;
 
 export function PerksPage() {
   const {
@@ -173,33 +173,12 @@ export function PerksPage() {
         </section>
       </main>
 
-      <footer className="w-full border-t border-zinc-200 bg-zinc-50">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 py-10 text-center sm:px-6 md:flex-row md:px-8 md:py-12 md:text-left">
-          <div className="flex flex-col gap-2">
-            <div className="font-headline text-lg font-bold text-zinc-900">
-              GFG DYPIU
-            </div>
-            <p className="font-body text-xs uppercase tracking-widest text-zinc-500">
-              &copy; 2026 GFG Student Chapter DYPIU. GeeksforGeeks Academic
-              Partner.
-            </p>
-          </div>
-          <div className="flex gap-4">
-            {socialIcons.map((icon) => (
-              <button
-                key={icon}
-                type="button"
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-200 text-zinc-600 transition-all hover:bg-green-700 hover:text-white"
-              >
-                <span className="material-symbols-outlined text-lg">
-                  {icon}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="h-px w-full bg-zinc-100" />
-      </footer>
+      <Footer
+        brand={siteContent.footer.brand}
+        copyright={siteContent.footer.copyright}
+        credit={siteContent.footer.credit}
+        presentationLink={siteContent.footer.presentationLink}
+      />
     </div>
   );
 }

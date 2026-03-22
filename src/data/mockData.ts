@@ -1,6 +1,8 @@
 export interface NavLink {
   readonly label: string;
   readonly href: string;
+  readonly target?: "_blank" | "_self";
+  readonly rel?: string;
 }
 
 export interface CallToAction {
@@ -245,14 +247,13 @@ export const siteContent = {
     brand: "GFG DYPIU",
     copyright:
       "(c) 2026 GFG Student Chapter DYPIU. Built for the Architect.",
-    links: [
-      { label: "GFG Main", href: "#" },
-      { label: "DYPIU Portal", href: "#" },
-      { label: "Privacy Policy", href: "#" },
-      { label: "Contact Us", href: "#" },
-      { label: "Terms", href: "#" },
-    ] satisfies readonly NavLink[],
-    socialIcons: ["share", "mail"] as const,
+    credit: "developed with 💖 by WebDevTeam-GFGDYPIU",
+    presentationLink: {
+      label: "Presentation",
+      href: "https://gfgweb.vercel.app/",
+      target: "_blank",
+      rel: "noreferrer",
+    } satisfies NavLink,
   },
   teamPage: {
     eyebrow: "The Architects",

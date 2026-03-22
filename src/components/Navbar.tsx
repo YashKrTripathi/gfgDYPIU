@@ -55,6 +55,8 @@ export function Navbar({ links, currentPage }: Readonly<NavbarProps>) {
                 <div className="flex flex-col gap-2">
                   <a
                     href={brandLink.href}
+                    target={brandLink.target}
+                    rel={brandLink.rel}
                     className={
                       currentPage === "home"
                         ? "rounded-2xl bg-white px-4 py-3 font-headline text-sm font-bold tracking-wide text-primary"
@@ -73,6 +75,8 @@ export function Navbar({ links, currentPage }: Readonly<NavbarProps>) {
                       <a
                         key={link.label}
                         href={link.href}
+                        target={link.target}
+                        rel={link.rel}
                         className={
                           isActive
                             ? "rounded-2xl bg-white px-4 py-3 font-headline text-sm font-bold tracking-wide text-primary"
@@ -104,6 +108,8 @@ export function Navbar({ links, currentPage }: Readonly<NavbarProps>) {
                 <a
                   key={link.label}
                   href={link.href}
+                  target={link.target}
+                  rel={link.rel}
                   className={
                     isActive
                       ? "flex items-center gap-2 rounded-full border border-white/65 bg-white/80 px-5 py-3 font-headline text-[0.95rem] font-bold tracking-tight text-primary shadow-[0_10px_24px_rgba(21,28,39,0.1)] transition-all duration-200 hover:scale-[1.02]"

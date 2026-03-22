@@ -6,6 +6,8 @@ import {
   type User,
 } from "firebase/auth";
 
+import { Footer } from "../components/Footer";
+import { siteContent } from "../data/mockData";
 import { quizCatalog, quizPresets } from "../data/quizCatalog";
 import {
   adminEmail,
@@ -607,41 +609,73 @@ export function AdminPage() {
 
   if (!isFirebaseConfigured) {
     return (
-      <div className="min-h-screen bg-background px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
-        <FirebaseSetupNotice />
+      <div className="min-h-screen bg-background pt-28 sm:pt-32">
+        <div className="px-4 pb-16 sm:px-6">
+          <FirebaseSetupNotice />
+        </div>
+        <Footer
+          brand={siteContent.footer.brand}
+          copyright={siteContent.footer.copyright}
+          credit={siteContent.footer.credit}
+          presentationLink={siteContent.footer.presentationLink}
+        />
       </div>
     );
   }
 
   if (!isAdminEmailConfigured) {
     return (
-      <div className="min-h-screen bg-background px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
-        <AdminEmailSetupNotice />
+      <div className="min-h-screen bg-background pt-28 sm:pt-32">
+        <div className="px-4 pb-16 sm:px-6">
+          <AdminEmailSetupNotice />
+        </div>
+        <Footer
+          brand={siteContent.footer.brand}
+          copyright={siteContent.footer.copyright}
+          credit={siteContent.footer.credit}
+          presentationLink={siteContent.footer.presentationLink}
+        />
       </div>
     );
   }
 
   if (!authReady) {
     return (
-      <div className="min-h-screen bg-background px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
-        <div className="mx-auto max-w-3xl rounded-[1.75rem] bg-white p-8 shadow-[0_24px_60px_rgba(21,28,39,0.08)]">
-          Checking admin access...
+      <div className="min-h-screen bg-background pt-28 sm:pt-32">
+        <div className="px-4 pb-16 sm:px-6">
+          <div className="mx-auto max-w-3xl rounded-[1.75rem] bg-white p-8 shadow-[0_24px_60px_rgba(21,28,39,0.08)]">
+            Checking admin access...
+          </div>
         </div>
+        <Footer
+          brand={siteContent.footer.brand}
+          copyright={siteContent.footer.copyright}
+          credit={siteContent.footer.credit}
+          presentationLink={siteContent.footer.presentationLink}
+        />
       </div>
     );
   }
 
   if (!adminUser) {
     return (
-      <div className="min-h-screen bg-background px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
-        <AdminLoginCard
-          email={loginEmail}
-          password={loginPassword}
-          error={authError}
-          submitting={signingIn}
-          onEmailChange={setLoginEmail}
-          onPasswordChange={setLoginPassword}
-          onSubmit={handleAdminSignIn}
+      <div className="min-h-screen bg-background pt-28 sm:pt-32">
+        <div className="px-4 pb-16 sm:px-6">
+          <AdminLoginCard
+            email={loginEmail}
+            password={loginPassword}
+            error={authError}
+            submitting={signingIn}
+            onEmailChange={setLoginEmail}
+            onPasswordChange={setLoginPassword}
+            onSubmit={handleAdminSignIn}
+          />
+        </div>
+        <Footer
+          brand={siteContent.footer.brand}
+          copyright={siteContent.footer.copyright}
+          credit={siteContent.footer.credit}
+          presentationLink={siteContent.footer.presentationLink}
         />
       </div>
     );
@@ -649,18 +683,26 @@ export function AdminPage() {
 
   if (!isAuthorizedAdmin) {
     return (
-      <div className="min-h-screen bg-background px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
-        <UnauthorizedAdminNotice
-          signedInEmail={adminUser.email ?? "unknown"}
-          onSignOut={() => void handleAdminSignOut()}
+      <div className="min-h-screen bg-background pt-28 sm:pt-32">
+        <div className="px-4 pb-16 sm:px-6">
+          <UnauthorizedAdminNotice
+            signedInEmail={adminUser.email ?? "unknown"}
+            onSignOut={() => void handleAdminSignOut()}
+          />
+        </div>
+        <Footer
+          brand={siteContent.footer.brand}
+          copyright={siteContent.footer.copyright}
+          credit={siteContent.footer.credit}
+          presentationLink={siteContent.footer.presentationLink}
         />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
-      <div className="mx-auto max-w-7xl space-y-8">
+    <div className="min-h-screen bg-background pt-28 sm:pt-32">
+      <div className="mx-auto max-w-7xl space-y-8 px-4 pb-16 sm:px-6">
         <section className="rounded-[1.75rem] bg-[linear-gradient(135deg,#09141a_0%,#13232a_100%)] p-8 text-white shadow-[0_24px_60px_rgba(21,28,39,0.14)] sm:p-10">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
@@ -1176,6 +1218,12 @@ export function AdminPage() {
           </div>
         )}
       </div>
+      <Footer
+        brand={siteContent.footer.brand}
+        copyright={siteContent.footer.copyright}
+        credit={siteContent.footer.credit}
+        presentationLink={siteContent.footer.presentationLink}
+      />
     </div>
   );
 }

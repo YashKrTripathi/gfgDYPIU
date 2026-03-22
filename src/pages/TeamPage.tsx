@@ -1,44 +1,10 @@
 import { useTouchFlipCard } from "../hooks/useTouchFlipCard";
-import type { NavLink, TeamDomainLead, TeamLeader, TeamMentor } from "../data/mockData";
+import { Footer } from "../components/Footer";
+import type { TeamDomainLead, TeamLeader, TeamMentor } from "../data/mockData";
 import { siteContent } from "../data/mockData";
 
 interface TeamPageProps {
   readonly footerBrand: string;
-}
-
-interface TeamFooterProps {
-  readonly brand: string;
-  readonly links: readonly NavLink[];
-}
-
-function TeamFooter({ brand, links }: Readonly<TeamFooterProps>) {
-  return (
-    <footer className="w-full border-t border-outline-variant/20 bg-surface-container-lowest px-4 py-10 sm:px-6 sm:py-12 md:px-8">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-3 md:gap-12">
-        <div className="flex flex-col text-center md:text-left">
-          <span className="mb-4 block font-headline text-lg font-bold text-primary">
-            {brand}
-          </span>
-          <p className="text-sm text-on-surface-variant">
-            (c) 2026 GFG DYPIU Student Chapter. All rights reserved.
-          </p>
-        </div>
-        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 md:col-span-2 md:justify-end md:gap-x-12 md:gap-y-6">
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-on-surface-variant md:justify-end md:gap-6">
-            {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="transition-colors hover:text-primary"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
 }
 
 function MentorCard({ mentor }: Readonly<{ mentor: TeamMentor }>) {
@@ -274,7 +240,12 @@ export function TeamPage({ footerBrand }: Readonly<TeamPageProps>) {
           </div>
         </section>
       </main>
-      <TeamFooter brand={footerBrand} links={teamPage.footerLinks} />
+      <Footer
+        brand={footerBrand}
+        copyright={siteContent.footer.copyright}
+        credit={siteContent.footer.credit}
+        presentationLink={siteContent.footer.presentationLink}
+      />
     </div>
   );
 }

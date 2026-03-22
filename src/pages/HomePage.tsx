@@ -40,8 +40,8 @@ export function HomePage() {
       <Footer
         brand={siteContent.footer.brand}
         copyright={siteContent.footer.copyright}
-        links={siteContent.footer.links}
-        socialIcons={siteContent.footer.socialIcons}
+        credit={siteContent.footer.credit}
+        presentationLink={siteContent.footer.presentationLink}
       />
     </div>
   );

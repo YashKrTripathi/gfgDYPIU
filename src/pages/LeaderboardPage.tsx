@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
+import { Footer } from "../components/Footer";
+import { siteContent } from "../data/mockData";
 import { quizCatalog } from "../data/quizCatalog";
 import { isFirebaseConfigured } from "../lib/firebase";
 import {
@@ -155,21 +157,30 @@ export function LeaderboardPage() {
 
   if (!isFirebaseConfigured) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#081117] px-6 text-white">
-        <div className="max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 p-10 text-center backdrop-blur-xl">
-          <p className="text-sm font-bold uppercase tracking-[0.24em] text-primary-fixed-dim">
-            Firebase Setup Needed
-          </p>
-          <h1 className="mt-4 font-headline text-4xl font-extrabold">
-            Connect Firebase to show the live leaderboard.
-          </h1>
+      <div className="min-h-screen bg-[#081117] text-white">
+        <div className="flex items-center justify-center px-6 py-10">
+          <div className="max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 p-10 text-center backdrop-blur-xl">
+            <p className="text-sm font-bold uppercase tracking-[0.24em] text-primary-fixed-dim">
+              Firebase Setup Needed
+            </p>
+            <h1 className="mt-4 font-headline text-4xl font-extrabold">
+              Connect Firebase to show the live leaderboard.
+            </h1>
+          </div>
         </div>
+        <Footer
+          brand={siteContent.footer.brand}
+          copyright={siteContent.footer.copyright}
+          credit={siteContent.footer.credit}
+          presentationLink={siteContent.footer.presentationLink}
+        />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,#16303a_0%,#081117_55%,#050a0f_100%)] px-6 py-10 text-white sm:px-10 lg:px-14">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,#16303a_0%,#081117_55%,#050a0f_100%)] text-white">
+      <div className="px-6 py-10 sm:px-10 lg:px-14">
       <AnimatePresence>
         {showPodium ? (
           <motion.div
@@ -411,6 +422,13 @@ export function LeaderboardPage() {
           </aside>
         </section>
       </div>
+      </div>
+      <Footer
+        brand={siteContent.footer.brand}
+        copyright={siteContent.footer.copyright}
+        credit={siteContent.footer.credit}
+        presentationLink={siteContent.footer.presentationLink}
+      />
     </div>
   );
 }

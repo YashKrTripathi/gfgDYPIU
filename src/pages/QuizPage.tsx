@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
+import { Footer } from "../components/Footer";
+import { siteContent } from "../data/mockData";
 import { quizCatalog } from "../data/quizCatalog";
 import { isFirebaseConfigured } from "../lib/firebase";
 import {
@@ -509,15 +511,23 @@ export function QuizPage() {
 
   if (!isFirebaseConfigured) {
     return (
-      <div className="min-h-screen bg-background px-4 pb-16 pt-24 sm:px-6 sm:pt-32">
-        <FirebaseSetupNotice />
+      <div className="min-h-screen bg-background pt-24 sm:pt-32">
+        <div className="px-4 pb-16 sm:px-6">
+          <FirebaseSetupNotice />
+        </div>
+        <Footer
+          brand={siteContent.footer.brand}
+          copyright={siteContent.footer.copyright}
+          credit={siteContent.footer.credit}
+          presentationLink={siteContent.footer.presentationLink}
+        />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background px-4 pb-16 pt-24 sm:px-6 sm:pt-32">
-      <div className="mx-auto max-w-7xl">
+    <div className="min-h-screen bg-background pt-24 sm:pt-32">
+      <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-6">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8">
           <div className="space-y-6 sm:space-y-8">
             <section className="rounded-[1.75rem] bg-[linear-gradient(135deg,#09141a_0%,#13232a_100%)] p-6 text-white shadow-[0_24px_60px_rgba(21,28,39,0.14)] sm:p-10">
@@ -821,6 +831,12 @@ export function QuizPage() {
           </aside>
         </div>
       </div>
+      <Footer
+        brand={siteContent.footer.brand}
+        copyright={siteContent.footer.copyright}
+        credit={siteContent.footer.credit}
+        presentationLink={siteContent.footer.presentationLink}
+      />
     </div>
   );
 }
