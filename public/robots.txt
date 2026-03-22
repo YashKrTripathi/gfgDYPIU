@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://yashkrtripathi.github.io/gfgDYPIU/sitemap.xml
+Sitemap: https://gfgdypiu.app/sitemap.xml
