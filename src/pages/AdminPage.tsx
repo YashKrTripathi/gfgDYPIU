@@ -349,7 +349,7 @@ export function AdminPage() {
     }
 
     const nextEmail = loginEmail.trim();
-    const nextPassword = loginPassword.trim();
+    const nextPassword = loginPassword;
 
     if (!nextEmail || !nextPassword) {
       setAuthError("Enter both the admin email and password.");
